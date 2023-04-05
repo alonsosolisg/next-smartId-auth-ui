@@ -119,7 +119,9 @@ const AuthenticatePage = () => {
                       key={country.value}
                       value={country.value}
                       label={country.label}
-                    ></option>
+                    >
+                      {country.label}
+                    </option>
                   ))}
                 </select>
               </div>
