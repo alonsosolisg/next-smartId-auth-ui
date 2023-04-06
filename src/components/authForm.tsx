@@ -77,9 +77,6 @@ const AuthenticatePage = () => {
     window.location.reload();
   };
 
-  console.log("code", countryCode);
-  console.log("number", nationalIdentityNumber);
-
   return (
     <div>
       {loading && (
@@ -137,7 +134,9 @@ const AuthenticatePage = () => {
                 <button
                   type="submit"
                   disabled={
-                    nationalIdentityNumber === undefined || countryCode === ""
+                    nationalIdentityNumber === undefined ||
+                    Number.isNaN(nationalIdentityNumber) ||
+                    countryCode === ""
                   }
                   className="py-3 w-64 text-xl text-white bg-cyan-500 rounded-2xl"
                 >
