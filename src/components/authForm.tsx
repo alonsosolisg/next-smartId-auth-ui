@@ -10,7 +10,8 @@ const countries = [
 ];
 
 const AuthenticatePage = () => {
-  const [nationalIdentityNumber, setNationalIdentityNumber] = useState("");
+  const [nationalIdentityNumber, setNationalIdentityNumber] =
+    useState<number>();
   const [countryCode, setCountryCode] = useState("EE");
   const [authUser, setAuthUser] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
@@ -76,6 +77,9 @@ const AuthenticatePage = () => {
     window.location.reload();
   };
 
+  console.log("code", countryCode);
+  console.log("number", nationalIdentityNumber);
+
   return (
     <div>
       {loading && (
@@ -102,10 +106,12 @@ const AuthenticatePage = () => {
               </div>
               <div className="space-y-4">
                 <input
-                  type="text"
+                  type="number"
                   placeholder="National Identity Number"
                   value={nationalIdentityNumber}
-                  onChange={(e) => setNationalIdentityNumber(e.target.value)}
+                  onChange={(e) =>
+                    setNationalIdentityNumber(parseInt(e.target.value))
+                  }
                   className="block text-sm py-3 px-4 rounded-lg w-full border outline-none"
                 />
                 <select
@@ -119,6 +125,7 @@ const AuthenticatePage = () => {
                       key={country.value}
                       value={country.value}
                       label={country.label}
+                      defaultValue={"EE"}
                     >
                       {country.label}
                     </option>
@@ -129,7 +136,9 @@ const AuthenticatePage = () => {
               <div className="text-center mt-6">
                 <button
                   type="submit"
-                  disabled={nationalIdentityNumber === "" || countryCode === ""}
+                  disabled={
+                    nationalIdentityNumber === undefined || countryCode === ""
+                  }
                   className="py-3 w-64 text-xl text-white bg-cyan-500 rounded-2xl"
                 >
                   Sign In
